@@ -30,9 +30,9 @@ cd $OPENSHIFT_REPO_DIR
 rm -rf target
 
 $M2/mvn --version
-$M2/mvn -s settings.xml package
+$M2/mvn -s settings.xml clean package
 
 # if you get error then un comment the following line
 #$M2/mvn -s settings.xml package
 
-nohup java -Xms384m -Xmx412m -jar target/*.jar --server.port=${OPENSHIFT_DIY_PORT} --server.address=${OPENSHIFT_DIY_IP} --spring.profiles.active=openshift &
+nohup java -Xms384m -Xmx412m -war target/*.war --server.port=${OPENSHIFT_DIY_PORT} --server.address=${OPENSHIFT_DIY_IP} --spring.profiles.active=openshift &
