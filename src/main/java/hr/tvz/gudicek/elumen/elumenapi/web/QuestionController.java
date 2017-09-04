@@ -13,42 +13,47 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import hr.tvz.gudicek.elumen.elumenapi.entities.Subject;
-import hr.tvz.gudicek.elumen.elumenapi.services.SubjectService;
+import hr.tvz.gudicek.elumen.elumenapi.entities.Question;
+import hr.tvz.gudicek.elumen.elumenapi.services.QuestionService;
 
 @RestController
-@RequestMapping("/subject")
-public class SubjectController {
+@RequestMapping("/question")
+public class QuestionController {
 
 	@Autowired
-	private SubjectService subjectService;
+	private QuestionService questionService;
 
 	@PutMapping("/insert")
-	public ResponseEntity<String> insert(@RequestBody Subject entity) {
-		subjectService.saveOrUpdate(entity);
+	public ResponseEntity<String> insert(@RequestBody Question entity) {
+		questionService.saveOrUpdate(entity);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<String> update(@RequestBody Subject entity) {
-		subjectService.saveOrUpdate(entity);
+	public ResponseEntity<String> update(@RequestBody Question entity) {
+		questionService.saveOrUpdate(entity);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
 	@GetMapping("/get/{id}")
-	public ResponseEntity<Subject> get(@PathVariable(value = "id") int id) {
-		return ResponseEntity.status(HttpStatus.OK).body(subjectService.get(id));
+	public ResponseEntity<Question> get(@PathVariable(value = "id") int id) {
+		return ResponseEntity.status(HttpStatus.OK).body(questionService.get(id));
 	}
 
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> delete(@PathVariable(value = "id") int id) {
-		subjectService.delete(id);
+		questionService.delete(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@GetMapping("/list")
-	public ResponseEntity<List<Subject>> getAll() {
-		return ResponseEntity.status(HttpStatus.OK).body(subjectService.findAll());
+	public ResponseEntity<List<Question>> getAll() {
+		return ResponseEntity.status(HttpStatus.OK).body(questionService.findAll());
+	}
+
+	@GetMapping("/list/{subjectId}")
+	public ResponseEntity<List<Question>> getAllBySubjectId(@PathVariable(value = "subjectId") int subjectId) {
+		return ResponseEntity.status(HttpStatus.OK).body(questionService.findBySubjectId(subjectId));
 	}
 
 }
